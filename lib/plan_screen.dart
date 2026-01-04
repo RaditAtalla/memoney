@@ -17,6 +17,7 @@ class _PlanScreenState extends State<PlanScreen> {
         "daily": {"Makan": 30000},
         "total": 920000,
       },
+      "isActive": true,
     },
     {
       "id": 1,
@@ -26,6 +27,7 @@ class _PlanScreenState extends State<PlanScreen> {
         "daily": {"Makan": 10000},
         "total": 320000,
       },
+      "isActive": false,
     },
     {
       "id": 2,
@@ -35,6 +37,7 @@ class _PlanScreenState extends State<PlanScreen> {
         "daily": {"Makan": 16000},
         "total": 480000,
       },
+      "isActive": false,
     },
   ];
 
@@ -81,9 +84,20 @@ class _PlanScreenState extends State<PlanScreen> {
             for (var data in dummyPlan)
               ExpansionTile(
                 leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.radio_button_off, size: 16),
+                  onPressed: () {
+                    setState(() {
+                      for(int i = 0; i < dummyPlan.length; i++) {
+                        dummyPlan[i]["isActive"] = false;
+                      }
+
+                      data["isActive"] = true;
+                    });
+                  },
+                  icon: Icon(Icons.radio_button_off, size: 16, color: data["isActive"] ? Colors.green : Colors.grey[800]),
                 ),
+                collapsedIconColor: Colors.grey[800],
+                iconColor: Colors.grey[800],
+                subtitle: Text("Rp${data["body"]["total"]}/month", style: TextStyle(color: Colors.grey),),
                 expandedAlignment: Alignment.centerLeft,
                 expandedCrossAxisAlignment: CrossAxisAlignment.start,
                 childrenPadding: EdgeInsets.symmetric(horizontal: 70),
@@ -107,7 +121,7 @@ class _PlanScreenState extends State<PlanScreen> {
                       children: [
                         Text(monthly.key, style: TextStyle(color: Colors.grey)),
                         Text(
-                          monthly.value.toString(),
+                          "Rp${monthly.value}",
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
@@ -129,7 +143,7 @@ class _PlanScreenState extends State<PlanScreen> {
                       children: [
                         Text(daily.key, style: TextStyle(color: Colors.grey)),
                         Text(
-                          daily.value.toString(),
+                          "Rp${daily.value}",
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
