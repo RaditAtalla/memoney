@@ -51,7 +51,7 @@ class _PlanScreenState extends State<PlanScreen> {
           children: [
             SizedBox(height: 30),
             Text(
-              "History",
+              "My Plans",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
